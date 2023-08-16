@@ -35,7 +35,7 @@ import Picture from './Picture.vue'
                 isWorking: false,
                 isShowBiel: false,
                 textBtnPicture: "Mostrar Imagem",
-                myLink: "https://google.com"
+                myLink: "https://github.com/gabrielp1999/"
             }
         },
         methods: {

@@ -1,5 +1,5 @@
 <template>
-    <img :src="avatar" :alt="description" >
+    <img :src="avatar" :alt="description" style="height: 240px; margin-top: 20px;" >
 </template>
 
 <script>
