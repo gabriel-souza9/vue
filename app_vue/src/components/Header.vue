@@ -23,7 +23,7 @@
     ul {
         list-style: none;
         display: flex;
-        background: rgb(6, 54, 187);
+        background: rgba(21, 109, 150, 0.76);
     }
 
     li {
