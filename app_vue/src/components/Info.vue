@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h2>email: {{ email }}</h2>
         <p v-if="isWorking">Estou trabalhando no momento.</p>
         <p v-else>Estou em busca de novas oportunidade</p>
         <h3>Tecnologias de Back que eu utilizo:</h3>
@@ -36,6 +37,9 @@ import Picture from './Picture.vue'
         name: "Info",
         components: {
             Picture
+        },
+        props: {
+            email: String
         },
         data(){
             return {
