@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>componente de msg</p>
+        <Message :msg="msg" v-show="msg" />
         <div>
             <form id="burguer-form" @submit="createBurguer">
                 <div class="input-container">
@@ -38,6 +38,7 @@
 
 <script>
     import axios from "axios";
+    import Message from "./Message.vue"
 
     const URLBASE = "http://localhost:3000";
 
@@ -54,6 +55,9 @@
                 options: [],
                 msg: null
             }
+        },
+        components: {
+            Message
         },
         methods: {
             async getIngredients(){
@@ -76,11 +80,12 @@
                     status: "Solicitado",
                 }
 
-                const payloadJson = JSON.stringify(payload);
-
                 const { data } = await axios.post(`${URLBASE}/burgers`, payload);
 
-                // mensagem de sistema
+                if(!data) return;
+                
+                this.msg = `Pedido do N ${data.id} realizado com sucesso!`;
+                setTimeout(() => this.msg = "", 3000);
 
                 this.clearFields();
             },

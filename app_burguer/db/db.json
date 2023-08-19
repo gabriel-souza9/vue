@@ -101,6 +101,17 @@
       ],
       "status": "Solicitado",
       "id": 2
+    },
+    {
+      "nome": "Lucas",
+      "carne": "Alcatra",
+      "pao": "Parmesão e Orégano",
+      "opicionais": [
+        "Cheddar",
+        "Bacon"
+      ],
+      "status": "Solicitado",
+      "id": 3
     }
   ]
 }
