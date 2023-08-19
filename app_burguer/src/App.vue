@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <Navbar :logo="logo_src" :alt="app_name"/>
   <router-view/>
   <Footer />
 </template>
@@ -12,11 +12,35 @@
     components: {
       Navbar,
       Footer
+    },
+    data(){
+      return {
+        logo_src: "/img/logo.png",
+        app_name: "Souzinha Burguers"
+      }
     }
   }
 </script>
 
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
+  box-sizing: border-box;
+}
 
+.main-container {
+  margin: 50px;
+  min-height: calc(100vh - 77px - 250px);
+
+}
+
+h1{
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: #222;
+}
 </style>
