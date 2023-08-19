@@ -81,14 +81,24 @@
     {
       "nome": "souza",
       "carne": "Contra File",
+      "pao": "Parmesão e Orégano",
+      "opicionais": [
+        "Cheddar",
+        "Tomate"
+      ],
+      "status": "Finalizado",
+      "id": 1
+    },
+    {
+      "nome": "Gabriel",
+      "carne": "Contra File",
       "pao": "Italiano Branco",
       "opicionais": [
         "Cheddar",
-        "Bacon",
-        "Tomate"
+        "Bacon"
       ],
       "status": "Solicitado",
-      "id": 1
+      "id": 2
     }
   ]
 }

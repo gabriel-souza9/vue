@@ -1,6 +1,7 @@
 <template>
     <div id="burger-table" v-if="burgers">
       <div>
+        <Message :msg="msg" v-show="msg" />
         <div id="burger-table-heading">
           <div class="order-id">N:</div>
           <div>Cliente:</div>
@@ -38,57 +39,59 @@
   </template>
   <script>
     import axios from "axios";
+import Message from "./Message.vue";
     const URLBASE = "http://localhost:3000";
 
     export default {
-      name: "Dashboard",
-      data() {
+    name: "Dashboard",
+    data() {
         return {
-          burgers: null,
-          burger_id: null,
-          status: []
-        }
-      },
-      methods: {
+            burgers: null,
+            burger_id: null,
+            status: [],
+            msg: null
+        };
+    },
+    methods: {
         async getPedidos() {
-          const { data } = await axios.get(`${URLBASE}/burgers`);
-          this.burgers = data;
-
-          console.log(data)
-  
-          // Resgata os status de pedidos
-          this.getStatus()
+            const { data } = await axios.get(`${URLBASE}/burgers`);
+            this.burgers = data;
+            console.log(data);
+            // Resgata os status de pedidos
+            this.getStatus();
         },
         async getStatus() {
-  
             const { data } = await axios.get(`${URLBASE}/status`);
-  
-          this.status = data
-  
+            this.status = data;
         },
         async deleteBurger(id) {
-  
-          const { data } = await axios.delete(`${URLBASE}/burgers/${id}`);
+            const { data } = await axios.delete(`${URLBASE}/burgers/${id}`);
 
-          this.getPedidos();  
+            if(!data) return;
+              
+              this.msg = `Pedido cancelado com sucesso!`;
+              setTimeout(() => this.msg = "", 3000);
+            this.getPedidos();
         },
         async updateBurger(event, id) {
-          const option = event.target.value;
+            const option = event.target.value;
+            const payload = {
+              status: option
+            };
+            console.log(option);
+            const { data } = await axios.patch(`${URLBASE}/burgers/${id}`, payload);
 
-          const payload = {
-            status: option
-          }
-
-          console.log(option)
-  
-          const { data } = await axios.patch(`${URLBASE}/burgers/${id}`, payload);
-          console.log(data)
+            if(!data) return;
+              
+            this.msg = `Pedido do N ${data.id} atualizado para ${data.status}!`;
+            setTimeout(() => this.msg = "", 3000);
         }
-      },
-      mounted () {
-      this.getPedidos()
-      }
-    }
+    },
+    mounted() {
+        this.getPedidos();
+    },
+    components: { Message }
+}
   </script>
   
   <style scoped>

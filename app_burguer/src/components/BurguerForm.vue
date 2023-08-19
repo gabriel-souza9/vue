@@ -72,6 +72,11 @@
             async createBurguer(e){
                 e.preventDefault();
 
+                if(!this.validateFields()){
+                    this.msg = "Preencha os campos";
+                    return;
+                }
+
                 const payload = {
                     nome: this.name,
                     carne: this.meatSelected,
@@ -88,6 +93,16 @@
                 setTimeout(() => this.msg = "", 3000);
 
                 this.clearFields();
+            },
+
+            validateFields(){
+                let isValid = true;
+
+                if(!this.name || !this.meatSelected || !this.breadSelected){
+                    isValid = false;
+                }
+
+                return isValid;
             },
 
             clearFields(){
