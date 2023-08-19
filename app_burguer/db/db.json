@@ -80,38 +80,15 @@
   "burgers": [
     {
       "nome": "souza",
-      "carne": "Picanha",
-      "pao": "Parmesão e Orégano",
+      "carne": "Contra File",
+      "pao": "Italiano Branco",
       "opicionais": [
-        "Bacon",
         "Cheddar",
+        "Bacon",
         "Tomate"
       ],
       "status": "Solicitado",
       "id": 1
-    },
-    {
-      "nome": "Andre",
-      "carne": "Veggie burger",
-      "pao": "Integral",
-      "opicionais": [
-        "Tomate",
-        "Pepino",
-        "Cebola roxa"
-      ],
-      "status": "Solicitado",
-      "id": 2
-    },
-    {
-      "nome": "Lucas",
-      "carne": "Alcatra",
-      "pao": "Parmesão e Orégano",
-      "opicionais": [
-        "Cheddar",
-        "Bacon"
-      ],
-      "status": "Solicitado",
-      "id": 3
     }
   ]
 }
