@@ -2,21 +2,21 @@
     <div>
         <p>componente de msg</p>
         <div>
-            <form id="burguer-form">
+            <form id="burguer-form" @submit="createBurguer">
                 <div class="input-container">
                     <label for="name">Nome cliente:</label>
                     <input type="text" id="name" name="name" v-model="name" placeholder="Digite o seu nome">
                 </div>
                 <div class="input-container">
                     <label for="bread">Escolha o pão:</label>
-                   <select id="bread" v-model="bread">
+                   <select id="bread" v-model="breadSelected">
                         <option value="">Selecione seu pão</option>
                         <option v-for="bread in breads"  :value="bread.tipo" :key="bread.id">{{ bread.tipo }}</option>
                    </select>
                 </div>
                 <div class="input-container">
                     <label for="meat">Escolha a carne do seu burguer:</label>
-                   <select id="meat" v-model="meat">
+                   <select id="meat" v-model="meatSelected">
                         <option value="">Selecione sua carne</option>
                         <option v-for="meat in meats"  :value="meat.tipo" :key="meat.id">{{ meat.tipo }}</option>
                    </select>
@@ -49,9 +49,9 @@
                 meats: null,
                 optionsData: null,
                 breadSelected: null,
+                name: null,
                 meatSelected: null,
                 options: [],
-                status: "Solicitado",
                 msg: null
             }
         },
@@ -64,6 +64,33 @@
                 this.meats = data.carnes
                 this.optionsData = data.opcionais
             },
+
+            async createBurguer(e){
+                e.preventDefault();
+
+                const payload = {
+                    nome: this.name,
+                    carne: this.meatSelected,
+                    pao: this.breadSelected,
+                    opicionais: Array.from(this.options),
+                    status: "Solicitado",
+                }
+
+                const payloadJson = JSON.stringify(payload);
+
+                const { data } = await axios.post(`${URLBASE}/burgers`, payload);
+
+                // mensagem de sistema
+
+                this.clearFields();
+            },
+
+            clearFields(){
+                this.name = null,
+                this.meatSelected = null;
+                this.breadSelected = null;
+                this.options = [];
+            }
 
         },
         mounted(){
