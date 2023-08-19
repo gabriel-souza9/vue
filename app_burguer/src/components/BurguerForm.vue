@@ -11,29 +11,21 @@
                     <label for="bread">Escolha o pão:</label>
                    <select id="bread" v-model="bread">
                         <option value="">Selecione seu pão</option>
-                        <option value="">Pão integral</option>
+                        <option v-for="bread in breads"  :value="bread.tipo" :key="bread.id">{{ bread.tipo }}</option>
                    </select>
                 </div>
                 <div class="input-container">
                     <label for="meat">Escolha a carne do seu burguer:</label>
                    <select id="meat" v-model="meat">
                         <option value="">Selecione sua carne</option>
-                        <option value="">Carne de boi</option>
+                        <option v-for="meat in meats"  :value="meat.tipo" :key="meat.id">{{ meat.tipo }}</option>
                    </select>
                 </div>
-                <div class="input-container">
-                    <label for="options">Escolha os opcionais:</label>
-                    <div class="checkbox-container">
-                        <input type="checkbox" name="options" v-model="options" value="salame">
-                        <span>Salame</span>
-                    </div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" name="options" v-model="options" value="salame">
-                        <span>Bacon</span>
-                    </div>
-                    <div class="checkbox-container">
-                        <input type="checkbox" name="options" v-model="options" value="salame">
-                        <span>Tomate</span>
+                <div id="opcionais-container" class="input-container">
+                    <label  id="opcionais-title" for="options">Escolha os opcionais:</label>
+                    <div class="checkbox-container" v-for="option in optionsData" :key="option.id">
+                        <input type="checkbox" name="options" v-model="options" :value="option.tipo">
+                        <span>{{ option.tipo }}</span>
                     </div>
                 </div>
                 <div class="input-container">
@@ -45,8 +37,38 @@
 </template>
 
 <script>
+    import axios from "axios";
+
+    const URLBASE = "http://localhost:3000";
+
     export default {
         name: "BurguerForm",
+        data(){
+            return {
+                breads: null,
+                meats: null,
+                optionsData: null,
+                breadSelected: null,
+                meatSelected: null,
+                options: [],
+                status: "Solicitado",
+                msg: null
+            }
+        },
+        methods: {
+            async getIngredients(){
+                const { data } = await axios.get(`${URLBASE}/ingredientes`);
+                console.log(data);
+
+                this.breads = data.paes
+                this.meats = data.carnes
+                this.optionsData = data.opcionais
+            },
+
+        },
+        mounted(){
+            this.getIngredients();
+        }
     }
 </script>
 
@@ -76,9 +98,9 @@
     }
 
     #opcionais-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
   #opcionais-title {
     width: 100%;
@@ -94,6 +116,10 @@
   .checkbox-container span,
   .checkbox-container input {
     width: auto;
+  }
+
+  #opcionais-title {
+    width: 100%;
   }
 
   .checkbox-container span {
