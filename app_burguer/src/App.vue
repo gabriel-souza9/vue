@@ -33,9 +33,10 @@
 
 .main-container {
   margin: 50px;
-  min-height: calc(100vh - 77px - 250px);
+  min-height: calc(100vh - 77px - 300px);
 
 }
+
 
 h1{
   text-align: center;
